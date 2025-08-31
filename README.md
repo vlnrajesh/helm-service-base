@@ -1,14 +1,28 @@
 # helm-service-base
 
+## Overview
+
+This repository contains a reusable Helm library chart for managing microservices in a Kubernetes cluster. It is published via GitHub Pages from the `gh-pages` branch using an automated workflow. Individual application charts should be maintained in their respective branches or repositories and use this library chart as a dependency.
+
+## Usage
+
+Add this chart as a dependency in your application chart's `Chart.yaml`:
+```yaml
+dependencies:
+  - name: helm-service-base
+    version: 0.0.2
+    repository: https://vlnrajesh.github.io/helm-service-base
+```
+
 ## Template Documentation
 
 ### `templates/__helpers.tpl`
-This file defines reusable Helm template functions:
-- **`..chart`**: Generates a chart name and version label, used for resource identification.
-- **`..labels`**: Generates common Kubernetes labels for resources, including chart, app, version, and managed-by. It also includes selector labels and app version if available.
+Reusable Helm template functions:
+- **`..chart`**: Generates chart name and version label for resource identification.
+- **`..labels`**: Generates common Kubernetes labels for resources, including chart, app, version, managed-by, selector labels, and app version if available.
 
 ### `templates/configmap.yaml`
-This template conditionally creates one or more ConfigMaps based on values provided in `values.yaml`:
+Conditionally creates one or more ConfigMaps based on values provided in `values.yaml`:
 - **Enable/Disable**: Controlled by `.Values.configmap.enabled` (boolean).
 - **ConfigMaps**: Defined under `.Values.configmaps` as a map, where each key is the ConfigMap name and value is an object with optional `labels` and `data`.
 - **Labels**: Custom labels can be added per ConfigMap.
@@ -29,30 +43,8 @@ configmaps:
     data:
       foo: "bar"
 ```
-
 This will create two ConfigMaps with the specified labels and data.
 
-## Unit Testing with helm-unittest
-
-Unit tests for templates are placed in the `tests/` directory. The chart uses [helm-unittest](https://github.com/quintush/helm-unittest) for testing template rendering.
-
-### How to run unit tests
-
-1. Install helm-unittest plugin (if not already installed):
-   ```sh
-   helm plugin install https://github.com/quintush/helm-unittest
-   ```
-2. Run the tests:
-   ```sh
-   helm unittest .
-   ```
-   This will execute all test suites in the `tests/` directory and report results.
-
-### Example test file: `tests/configmap_test.yaml`
-
-This file contains test cases for the ConfigMap template, including:
-- Rendering when `configmap.enabled` is false (no ConfigMap should be created)
-- Rendering multiple ConfigMaps with custom labels and data
-- Edge cases for missing labels/data
-
-Refer to the file for more details and add your own cases as needed.
+## Notes
+- This chart is intended as a library and should not be deployed directly.
+- Application charts should declare this chart as a dependency and use its templates and helpers.
