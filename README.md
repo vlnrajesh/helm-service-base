@@ -10,7 +10,7 @@ Add this chart as a dependency in your application chart's `Chart.yaml`:
 ```yaml
 dependencies:
   - name: helm-service-base
-    version: 0.0.3
+    version: 0.0.2
     repository: https://vlnrajesh.github.io/helm-service-base
 ```
 
