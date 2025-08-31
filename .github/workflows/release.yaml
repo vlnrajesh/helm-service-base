@@ -1,3 +1,6 @@
+permissions:
+  contents: write
+
 name: Release Chart
 on:
   push:
@@ -15,9 +18,21 @@ jobs:
         run: |
           git config user.name "$GITHUB_ACTOR"
           git config user.email "$GITHUB_ACTOR@users.noreply.github.com"
-      - name: Run chart-releaser
-        uses: helm/chart-releaser-action@v1.7.0
+      - name: Install Helm
+        run: |
+          curl -fsSL https://raw.githubusercontent.com/helm/helm/main/scripts/get-helm-3 | bash
+      - name: Package chart
+        run: |
+          mkdir -p charts
+          helm package . -d charts
+      - name: Create Helm repo index
+        run: |
+          helm repo index charts --url https://vlnrajesh.github.io/helm-service-base
+      - name: Publish to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
         with:
-          charts_dir: "."
-        env:
-          CR_TOKEN: "${{ secrets.GITHUB_TOKEN }}"
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./charts
+          publish_branch: gh-pages
+          # keep files on gh-pages (set to true to avoid wiping other content)
+          allow_empty_commit: false
