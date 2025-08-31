@@ -10,6 +10,27 @@
 <h1 id="helm-service-base">The Microservice Helm Library for Kubernetes</h1>
 <p>This is a Helm chart library that provides a set of reusable templates and functions to help you create and manage microservices on Kubernetes. It includes common configurations for deployments, services, ingress, and other Kubernetes resources.</p>
 
+<section>
+    <h2>Usage as a Dependency</h2>
+    <p>
+        This chart is intended to be consumed as a library dependency by application charts. Below are recommended ways to embed and use it.
+    </p>
+    <h3>Add as a dependency in your application's <code>Chart.yaml</code> (Helm v3):</h3>
+    <pre><code>dependencies:
+  - name: helm-service-base
+    alias: base-service
+    version: 0.0.5
+    repository: "https://vlnrajesh.github.io/helm-service-base" # optional for published repos
+</code></pre>
+    <h3>Local development: use a local path in your application's <code>Chart.yaml</code> or use <code>helm dependency</code> commands.</h3>
+    <p>Local path example (useful for testing changes in the library chart):</p>
+    <pre><code>dependencies:
+  - name: helm-service-base
+    alias: base-service
+    version: 0.0.3
+    repository: "file://../helm-service-base"
+</code></pre>
+</section>
 
 <p>For more information, please refer to the <a href="https://github.com/vlnrajesh/helm-service-base"> Helm Service base on Github </a>.</p>
 
