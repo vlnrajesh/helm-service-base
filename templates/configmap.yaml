@@ -1,0 +1,21 @@
+{{- if .Values.configmap.enabled | default false }}
+{{- range $configmapName, $configmapData := .Values.configmaps }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $.Release.Name }}-{{ $configmapName }}
+  labels:
+  {{ include "..labels" . | nindent 4 }}
+  {{- if $configmapData.labels }}
+  {{- range $key, $value := $configmapData.labels }}
+  {{ $key }}: {{ $value | quote }}
+  {{- end }}
+  {{- end }}
+data:
+  {{- if $configmapData.data }}
+  {{- range $key, $value := $configmapData.data }}
+  {{ $key }}: {{ $value | toString | quote }}
+  {{- end }}
+  {{- end }}
+{{- end }}
+{{- end }}

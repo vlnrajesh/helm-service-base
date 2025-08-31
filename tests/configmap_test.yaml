@@ -1,0 +1,17 @@
+suite: Minimal ConfigMap Test
+
+templates:
+  - templates/configmap.yaml
+
+tests:
+  - it: should not render any ConfigMap when disabled
+    set:
+      configmap:
+        enabled: false
+      configmaps:
+        test:
+          data:
+            foo: bar
+    asserts:
+      - hasDocuments:
+          count: 0
