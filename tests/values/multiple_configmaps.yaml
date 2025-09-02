@@ -1,0 +1,14 @@
+configmap:
+  enabled: true
+configmaps:
+  test1:
+    labels:
+      app: test1-configmap
+    data:
+      emptykey:
+      key1: value1
+  test2:
+    labels:
+      app: test2-configmap
+    data:
+      key2: value2

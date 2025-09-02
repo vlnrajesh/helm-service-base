@@ -1,11 +1,11 @@
-{{- if .Values.configmap.enabled | default false }}
+{{- if .Values.configmap.enabled }}
 {{- range $configmapName, $configmapData := .Values.configmaps }}
 apiVersion: v1
 kind: ConfigMap
 metadata:
   name: {{ $.Release.Name }}-{{ $configmapName }}
   labels:
-  {{ include "..labels" . | nindent 4 }}
+  {{ include "..labels" $ | nindent 4 }}
   {{- if $configmapData.labels }}
   {{- range $key, $value := $configmapData.labels }}
   {{ $key }}: {{ $value | quote }}
@@ -17,5 +17,6 @@ data:
   {{ $key }}: {{ $value | toString | quote }}
   {{- end }}
   {{- end }}
+---
 {{- end }}
 {{- end }}

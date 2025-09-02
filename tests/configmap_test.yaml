@@ -1,4 +1,4 @@
-suite: Minimal ConfigMap Test
+suite: ConfigMap Test Suite
 
 templates:
   - templates/configmap.yaml
@@ -15,3 +15,42 @@ tests:
     asserts:
       - hasDocuments:
           count: 0
+
+  - it: should not render ConfigMap when data is empty
+    set:
+      configmap:
+        enabled: true
+      configmaps:
+        test:
+          data: {}
+    asserts:
+      - hasDocuments:
+          count: 1
+  - it: should render ConfigMap when data is provided
+    set:
+      configmap:
+        enabled: true
+      configmaps:
+        test:
+          labels:
+            app: myapp
+          data:
+            foo: bar
+    asserts:
+      - hasDocuments:
+          count: 1
+      - isNotEmpty:
+          path: metadata.labels
+      - matchRegex:
+          path: metadata.name
+          pattern: -test$
+      - matchRegex:
+          path: data.foo
+          pattern: ^bar$
+
+  - it: should render multiple ConfigMaps
+    values:
+      - ./values/multiple_configmaps.yaml
+    asserts:
+      - hasDocuments:
+          count: 2

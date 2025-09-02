@@ -7,6 +7,8 @@ This repository contains a reusable Helm library chart for managing microservice
 ## Usage as a dependency
 
 This chart is intended to be consumed as a library dependency by application charts. Below are recommended ways to embed and use it.
+alias: 
+In Helm, an alias in a chart dependency allows a parent chart to include the same subchart multiple times, each with a distinct name, or to refer to a subchart by a name different from its original name. This is particularly useful in scenarios where a Helm release requires multiple instances of the same dependency, each configured differently.
 
 1) Add as a dependency in your application's Chart.yaml (Helm v3):
 
@@ -14,7 +16,7 @@ This chart is intended to be consumed as a library dependency by application cha
 dependencies:
   - name: helm-service-base
     alias: base-service
-    version: 0.0.5
+    version: 0.0.6
     repository: "https://vlnrajesh.github.io/helm-service-base" # optional for published repos
 ```
 
@@ -26,13 +28,9 @@ dependencies:
 dependencies:
   - name: helm-service-base
     alias: base-service
-    version: 0.0.3
+    version: 0.0.6
     repository: "file://../helm-service-base"
 ```
-### alias:
-
-An alias allows a dependency to be included multiple times, giving each instance a unique name within the parent chart's scope.
-During the dependency update and build process, the alias will be used to name the dependency directory.
 
 After adding the dependency, run in the application chart directory:
 

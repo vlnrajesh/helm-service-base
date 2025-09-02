@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../helm-charts/.idea/helm-charts.iml" filepath="$PROJECT_DIR$/../helm-charts/.idea/helm-charts.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/helm-service-base.iml" filepath="$PROJECT_DIR$/.idea/helm-service-base.iml" />
     </modules>
   </component>
