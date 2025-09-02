@@ -3,12 +3,12 @@ entries:
   helm-service-base:
   - apiVersion: v2
     appVersion: latest
-    created: "2025-08-31T06:25:19.178117659Z"
+    created: "2025-09-02T14:45:06.879975724Z"
     description: Base chart for the management of microservices in a Kubernetes cluster.
-    digest: 56b3e4b27ed07df16a797069dcbf815b5a9282328eebc499d94eb3694a767577
+    digest: 690565d9d740c1052d42777c471e0a7dfe0aca96f22c25fd6a100b276ef2504b
     name: helm-service-base
-    type: library
+    type: application
     urls:
-    - https://vlnrajesh.github.io/helm-service-base/helm-service-base-0.0.5.tgz
-    version: 0.0.5
-generated: "2025-08-31T06:25:19.1766993Z"
+    - https://vlnrajesh.github.io/helm-service-base/helm-service-base-0.0.6.tgz
+    version: 0.0.6
+generated: "2025-09-02T14:45:06.878036089Z"
